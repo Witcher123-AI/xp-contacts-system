@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通讯录管理系统</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/content.css">
+    <link rel="stylesheet" href="styles/modal.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>通讯录管理系统</h1>
+            <div class="actions">
+                <button id="addContactBtn" class="btn btn-primary">添加联系人</button>
+                <button id="exportBtn" class="btn btn-secondary">导出Excel</button>
+                <input type="file" id="importInput" accept=".xlsx,.xls" style="display: none;">
+                <button id="importBtn" class="btn btn-secondary">导入Excel</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索联系人...">
+                </div>
+                <div class="filter-tabs">
+                    <button class="tab-btn active" data-filter="all">全部联系人</button>
+                    <button class="tab-btn" data-filter="favorites">收藏联系人</button>
+                </div>
+                <div class="contact-list" id="contactList">
+                    <!-- 联系人列表将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="contact-detail" id="contactDetail">
+                    <div class="empty-state">
+                        <h3>请选择一个联系人查看详情</h3>
+                        <p>或点击上方"添加联系人"按钮创建新联系人</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加/编辑联系人模态框 -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">添加联系人</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="contactForm">
+                <input type="hidden" id="contactId">
+                <div class="form-group">
+                    <label for="contactName">姓名*</label>
+                    <input type="text" id="contactName" required>
+                </div>
+                <div class="form-group">
+                    <label>联系方式</label>
+                    <div id="contactMethods">
+                        <div class="contact-method">
+                            <select class="method-type">
+                                <option value="phone">电话</option>
+                                <option value="email">邮箱</option>
+                                <option value="wechat">微信</option>
+                                <option value="address">地址</option>
+                            </select>
+                            <input type="text" class="method-value" placeholder="请输入联系方式">
+                            <button type="button" class="remove-method">删除</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addMethodBtn" class="btn btn-sm btn-outline">添加联系方式</button>
+                </div>
+                <div class="form-group">
+                    <label for="contactNote">备注</label>
+                    <textarea id="contactNote" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="isFavorite">
+                        设为收藏联系人
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">取消</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
